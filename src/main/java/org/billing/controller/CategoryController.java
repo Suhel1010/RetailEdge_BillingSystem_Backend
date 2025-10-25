@@ -35,7 +35,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public List<CategoryResponse> getAll(){
+    public List<CategoryResponse> getAll() {
         return categoryService.read();
     }
 
