@@ -35,7 +35,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public List<CategoryResponse> getAll(){
+    public List<CategoryResponse> getAll() {
         return categoryService.read();
     }
 
@@ -45,7 +45,7 @@ public class CategoryController {
         try {
             categoryService.destroy(categoryId);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 }
