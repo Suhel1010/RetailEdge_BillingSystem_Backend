@@ -5,6 +5,7 @@ import org.billing.entity.CategoryEntity;
 import org.billing.io.CategoryRequest;
 import org.billing.io.CategoryResponse;
 import org.billing.repository.CategoryRepository;
+import org.billing.repository.ItemRepository;
 import org.billing.service.CategoryService;
 import org.billing.service.FileUploadService;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final FileUploadService fileUploadService;
+    private final ItemRepository itemRepository;
 
     @Override
     public CategoryResponse add(CategoryRequest categoryRequest, MultipartFile multipartFile) {
@@ -50,12 +52,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private CategoryResponse convertToResponse(CategoryEntity newCategory) {
+        Integer itemCount = itemRepository.countByCategoryEntity_Id(newCategory.getId());
         return CategoryResponse.builder()
                 .CategoryId(newCategory.getCategoryId())
                 .name(newCategory.getName())
                 .description(newCategory.getDescription())
                 .bgColor(newCategory.getBgColor())
                 .imgUrl(newCategory.getImgUrl())
+                .items(itemCount)
                 .createdAt(String.valueOf(newCategory.getCreatedAt()))
                 .updatedAt(String.valueOf(newCategory.getUpdatedAt()))
                 .build();

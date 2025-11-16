@@ -13,4 +13,5 @@ public class CategoryResponse {
     private String createdAt;
     private String updatedAt;
     private String imgUrl;
+    private Integer items;
 }

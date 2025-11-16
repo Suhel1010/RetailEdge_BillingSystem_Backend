@@ -14,13 +14,13 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/categories")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @PostMapping
+    @PostMapping("/admin/categories")
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryResponse addCategory(@RequestPart("category") String categoryString,
                                         @RequestPart("file")MultipartFile multipartFile){
@@ -30,6 +30,7 @@ public class CategoryController {
             request = objectMapper.readValue(categoryString,CategoryRequest.class);
             return categoryService.add(request,multipartFile);
         } catch (JsonProcessingException e) {
+            System.out.println(categoryString);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"error occur during to parsing json.");
         }
     }
@@ -39,7 +40,7 @@ public class CategoryController {
         return categoryService.read();
     }
 
-    @DeleteMapping("/{categoryId}")
+    @DeleteMapping("admin/categories/{categoryId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable String categoryId){
         try {
