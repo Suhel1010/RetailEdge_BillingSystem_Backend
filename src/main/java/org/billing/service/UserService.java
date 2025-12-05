@@ -10,6 +10,6 @@ public interface UserService {
     UserResponse createUser(UserRequest userRequest);
     String getUserRole(String email);
     List<UserResponse> readUsesr();
-    void deleteUser(String id);
+    void deleteUser(String userId);
 
 }

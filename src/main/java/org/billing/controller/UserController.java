@@ -6,6 +6,7 @@ import org.billing.io.UserRequest;
 import org.billing.io.UserResponse;
 import org.billing.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,16 +30,17 @@ public class UserController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public List<UserResponse> getUser(){
         return userService.readUsesr();
     }
 
 
-    @DeleteMapping("/user/{id}")
-    public void deleteUser(@PathVariable String id){
+    @DeleteMapping("/user/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String userId){
         try{
-            userService.deleteUser(id);
+            userService.deleteUser(userId);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

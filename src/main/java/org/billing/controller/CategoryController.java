@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -35,7 +34,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/categories")
     public List<CategoryResponse> getAll() {
         return categoryService.read();
     }
