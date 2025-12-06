@@ -66,8 +66,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser( String  id) {
-        UserEntity response = userRepository.findByUserId(id).orElseThrow(()-> new UsernameNotFoundException("User not found !!"));
+    public void deleteUser( String  userId) {
+        UserEntity response = userRepository.findByUserId(userId)
+                .orElseThrow(()-> new UsernameNotFoundException("User not found !!"));
         userRepository.delete(response);
 
     }

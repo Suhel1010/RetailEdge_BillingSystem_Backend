@@ -24,9 +24,9 @@ public class ItemController {
     private final ItemRepository itemRepository;
 
 
-    @PostMapping("/admin/item")
+    @PostMapping("/admin/items")
     public ItemResponse addItem(@RequestPart("item") String itemString,
-                               @RequestPart("file") MultipartFile file){
+                                @RequestPart("file") MultipartFile file){
         ObjectMapper objectMapper = new ObjectMapper();
         try{
             ItemRequest  itemRequest = objectMapper.readValue(itemString,ItemRequest.class);
@@ -44,6 +44,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/admin/{itemId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteItem(@PathVariable String itemId){
         ItemEntity response = itemRepository.findByItemId(itemId)
                 .orElseThrow(()-> new RuntimeException("item not found with given id = "+itemId));

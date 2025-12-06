@@ -48,12 +48,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login","/encode").permitAll()
-                        .requestMatchers("/category/","/items").hasAnyRole("USER","ADMIN")
-                       .requestMatchers("/admin/**").hasRole("ADMIN")
-                       .anyRequest().authenticated()
+                        .requestMatchers("/categories/","/items","/orders").hasAnyRole("USER","ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(sesion -> sesion.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
