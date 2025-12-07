@@ -1,6 +1,7 @@
 package org.billing.service.impl;
 
 import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import lombok.RequiredArgsConstructor;
 import org.billing.io.RazorpayOrderResponse;
@@ -19,14 +20,28 @@ public class RazorpayServiceImpl implements RazorpayService {
     private String razorpaySecretId;
 
     @Override
-    public RazorpayOrderResponse craeteOrder(Double amount, String currency) throws RazorpayException {
+    public RazorpayOrderResponse createOrder(Double amount, String currency) throws RazorpayException {
+        RazorpayClient razorpayClient = new RazorpayClient(razorpayKeyId,razorpaySecretId);
         JSONObject orderRequest = new JSONObject();
-        orderRequest.put("amount", (int)(amount * 100));   // convert rupees → paise
-        orderRequest.put("currency", "INR");
-        orderRequest.put("receipt", "txn_" + System.currentTimeMillis());
-
-        Order order = client.Orders.create(orderRequest);
-
-        return order.get("id");
+        orderRequest.put("amount", amount * 100);
+        orderRequest.put("currency", currency);
+        orderRequest.put("receipt", "order_receipt" + System.currentTimeMillis());
+        orderRequest.put("payment_capture",1);
+        Order order = razorpayClient.orders.create(orderRequest);
+        return convertToResponse(order);
     }
+
+    private RazorpayOrderResponse convertToResponse(Order order) {
+       return RazorpayOrderResponse.builder()
+               .id(order.get("id"))
+               .entity(order.get("entity"))
+               .amount(order.get("amount"))
+               .currency(order.get("currency"))
+               .status(order.get("status"))
+               .created_at(order.get("created_at"))
+               .receipt(order.get("receipt"))
+               .build();
+    }
+
+
 }

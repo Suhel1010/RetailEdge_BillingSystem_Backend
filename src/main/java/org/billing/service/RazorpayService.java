@@ -5,5 +5,5 @@ import org.billing.io.RazorpayOrderResponse;
 
 public interface RazorpayService {
 
-    RazorpayOrderResponse craeteOrder(Double amount, String currency) throws RazorpayException;
+    RazorpayOrderResponse createOrder(Double amount, String currency) throws RazorpayException;
 }

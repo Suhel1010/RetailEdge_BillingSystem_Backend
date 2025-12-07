@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,8 +17,8 @@ public class RazorpayOrderResponse {
     private String entity;
     private Integer amount;
     private String currency;
-    private String Status;
-    private Data createdAt;
+    private String status;
+    private Date created_at;
     private String receipt;
 
 }
