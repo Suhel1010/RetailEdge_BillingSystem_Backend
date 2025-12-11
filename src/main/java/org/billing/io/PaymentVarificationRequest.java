@@ -11,7 +11,7 @@ public class PaymentVarificationRequest {
 
     private String razorpayOrderId;
     private String razorpayPaymentId;
-    private String razorPaySignature;
+    private String razorpaySignature;
     private String orderId;
 
 

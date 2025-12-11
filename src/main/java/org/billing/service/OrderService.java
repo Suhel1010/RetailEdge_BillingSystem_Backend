@@ -4,6 +4,7 @@ import org.billing.io.OrderRequest;
 import org.billing.io.OrderResponse;
 import org.billing.io.PaymentVarificationRequest;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderService {
@@ -12,4 +13,7 @@ public interface OrderService {
     void deleteOrder(String orderId);
     List<OrderResponse> getLatestOrders();
     OrderResponse varifyPayment(PaymentVarificationRequest request);
+    Double sumSalesByDate(LocalDate date);
+    Long countByOrderDate(LocalDate date);
+    List<OrderResponse> findRecentOrders();
 }

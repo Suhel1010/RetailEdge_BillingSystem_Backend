@@ -26,6 +26,7 @@ public class PaymentController {
     }
 
     @PostMapping("/verify")
+    @ResponseStatus(HttpStatus.OK)
     public OrderResponse varifyPayment(@RequestBody PaymentVarificationRequest request){
         return orderService.varifyPayment(request);
     }
