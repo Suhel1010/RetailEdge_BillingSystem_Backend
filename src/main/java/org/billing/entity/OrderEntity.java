@@ -39,6 +39,7 @@ public class OrderEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id")
+    @Builder.Default
     private List<OrderItemEntity>  items = new ArrayList<>();
 
 
