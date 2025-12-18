@@ -11,7 +11,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 @Configuration
 public class AWSConfiguration {
 
-    @Value("${aws.acces.key}")
+    @Value("${aws.access.key}")
     private String accessKey;
     @Value("${aws.secret.key}")
     private String secretKey;
