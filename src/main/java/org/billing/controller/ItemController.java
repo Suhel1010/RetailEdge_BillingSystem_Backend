@@ -43,7 +43,7 @@ public class ItemController {
         return ResponseEntity.ok(fetched);
     }
 
-    @DeleteMapping("/admin/{itemId}")
+    @DeleteMapping("/admin/items/{itemId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteItem(@PathVariable String itemId){
         ItemEntity response = itemRepository.findByItemId(itemId)
